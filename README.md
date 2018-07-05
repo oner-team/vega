@@ -6,6 +6,8 @@
 
 **Vega** is a *visualization grammar*, a declarative format for creating, saving, and sharing interactive visualization designs. With Vega you can describe data visualizations in a JSON format, and generate interactive views using either HTML5 Canvas or SVG.
 
+**Vega**是一套图形语法，用于声明式地创建、保存和分享可交互的可视化设计。使用Vega，可以使用JSON格式来描述并创建(使用Canvas或SVG)可交互的数据可视化视图。
+
 For documentation, tutorials, and examples, see the [Vega website](https://vega.github.io/vega). For a description of changes between Vega 2 and later versions, please refer to the [Vega Porting Guide](https://vega.github.io/vega/docs/porting-guide/).
 
 Are you using Vega in a web application built with a bundler such as [Webpack](https://webpack.js.org/) or [Browserify](http://browserify.org/)? If so, and you _do not need server-side rendering support_, you might prefer using [vega-lib](https://github.com/vega/vega-lib) to include Vega in your app. The vega-lib repository also houses our general test suite.
