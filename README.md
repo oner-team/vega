@@ -10,6 +10,8 @@
 
 For documentation, tutorials, and examples, see the [Vega website](https://vega.github.io/vega). For a description of changes between Vega 2 and later versions, please refer to the [Vega Porting Guide](https://vega.github.io/vega/docs/porting-guide/).
 
+了解文档，教程和示例，可以查看[Vega website](https://vega.github.io/vega)。需要查看最新版本和Vega 2版本之间的详细更改，请移步至[Vega Porting Guide](https://vega.github.io/vega/docs/porting-guide/)。
+
 Are you using Vega in a web application built with a bundler such as [Webpack](https://webpack.js.org/) or [Browserify](http://browserify.org/)? If so, and you _do not need server-side rendering support_, you might prefer using [vega-lib](https://github.com/vega/vega-lib) to include Vega in your app. The vega-lib repository also houses our general test suite.
 
 ## Build Instructions
