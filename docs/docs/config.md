@@ -15,7 +15,7 @@ var runtime = vega.parse(spec, config);
 ```
 
 
-Vega的解析器会接受一个JSON配置文件，文件中定义了各种可视化的选项和默认配置项。不同的配置文件可以给图表不同的样式外观。配置文件的内容是简单的JSON对象，其中会有许多根据类型分类的键值对。如果你希望指定Vega使用指定的配置，只需要在解析方法中增加一个参数。
+Vega的解析器会解析一个指定包含配置项的JSON文件，文件中定义了各种可视化配置的选项和默认值。不同类型的配置文件可以赋予图表不同的展示样式。因为配置文件都是json文件，所以它的内容都由简单的根据图表类型来分类的JSON对象组成的。如果你希望指定Vega使用指定的配置，只需要在解析方法中增加一个参数。
 
 ```js
 var runtime = vega.parse(spec, config);
@@ -61,7 +61,7 @@ For example, this Vega spec includes light-gray axis grid lines by default:
 
 Properties defined in the top-level scope of the configuration object.
 
-Vega配置对象中的顶级属性。
+Vega配置项目中的顶级属性。
 
 
 | Property      | Type                                 | Description    |
@@ -73,8 +73,8 @@ Vega配置对象中的顶级属性。
 
 | 属性      | 类型                                 | 说明    |
 | :------------ | :----------------------------------: | :------------- |
-| autosize      | {% include type t="String|Object" %} |  默认自动适配图表视图尺寸的设置项。有效设置属性值是“pad”、“fit”或“none”。更多信息请参见[autosize文档](../specification/#autosize)。 |
-| background    | {% include type t="Color" %}         | 设置图表背景色，如果值为null时为透明背景 |
+| autosize      | {% include type t="String|Object" %} |  默认自动适配视图尺寸的设置项。有效设置属性值有“pad”、“fit”或“none”。更多信息请参见[autosize文档](../specification/#autosize)。 |
+| background    | {% include type t="Color" %}         | 设置视图组件的背景色，如果值为null时为透明背景 |
 | group         | {% include type t="Object" %}        | 用于设置图表样式和配色的顶级配置，有效配置项有`fill`、`stroke`和`strokeWidth` |
 
 ### Usage
@@ -99,7 +99,7 @@ Set default view background and chart plotting area background colors:
 
 Properties for event handling configuration, defined within an `"events"` property block.
 
-事件处理的默认配置，都在`events`字段的对象中。
+事件处理的默认配置，所有配置项都在`events`字段的对象中。
 
 | Property      | Type                                 | Description    |
 | :------------ | :----------------------------------: | :------------- |
@@ -108,7 +108,7 @@ Properties for event handling configuration, defined within an `"events"` proper
 
 | 属性      | 类型                                 | 说明    |
 | :------------ | :----------------------------------: | :------------- |
-| defaults      | {% include type t="Object" %}        | 类似于点击html中的`<a>`标签触发事件时，我们可以选择是否使用`e.preventDefault`阻止默认事件行为。当触发了Vega图表中的事件时，可能会同时触发元素的默认事件行为。`events`对象中的`defaults`属性允许设置`prevent`或`allow`属性，属性值可以使布尔值或者数组，设置布尔值会允许或禁用所有事件默认行为，设置数组可以选择禁用/允许的事件行为 |
+| defaults      | {% include type t="Object" %}        | 类似于点击html中的`<a>`标签触发事件时，我们可以选择是否使用`e.preventDefault`阻止默认事件行为。当触发了Vega图表元素的事件时，可能会同时触发元素的默认事件行为。`events`对象中的`defaults`属性允许设置`prevent`或`allow`属性，属性值可以使布尔值或者数组，设置布尔值会允许或禁用所有事件默认行为，设置数组可以选择禁用/允许的事件行为 |
 
 ### Usage
 
@@ -146,7 +146,7 @@ To prevent the default behavior for all events originating within a Vega view, e
 
 Properties defining default property values for each mark type. These properties are defined within blocks with names matching a valid mark type (e.g., `"area"`, `"line"`, `"rect"`). The valid properties within each block consist of the legal mark properties (e.g., `"fill"`, `"stroke"`, `"size"`, `"font"`). Global defaults for _all_ mark types can be set using the `"mark"` property.
 
-`mark`属性是为图标元素定义属性值的属性，部分属性值要求放在对应的图表元素名中进行定义才会生效（例如：`area`、`line`、`rect`），另外类似`fill`、`stroke`、`size`、`font`等属性则在所有所有图表元素中都有效。如果希望配置对所有元素都生效可以，可以将属性值放在`mark`对象中。
+`mark`属性是为图表元素定义默认属性值的属性，部分属性值要放在对应的图表元素名对象中进行定义才会生效（例如：`area`、`line`、`rect`），另外类似`fill`、`stroke`、`size`、`font`等属性则在所有所有图表元素中都有效。如果希望配置对所有元素都生效可以，可以直接将这些属性值定义在`mark`对象中。
 
 
 _Important limitations_:
@@ -155,16 +155,16 @@ _Important limitations_:
 
 - Defaults for fill or stroke color will be applied only if neither `"fill"` nor `"stroke"` are defined in the Vega spec.
 
-- 只有当Vega规范中没有定义`fill`和`stroke`时，Vega解析器才会使用默认的`fill`和`stroke`的默认值。
+- 只有当Vega规范配置中没有定义`fill`和`stroke`时，Vega解析器才会使用默认的`fill`和`stroke`的默认值。
 
 - Defaults set using the top-level `"mark"` property will be overridden by any defaults defined for more specific mark types (e.g., `"rect"`). Vega's built-in configuration includes default fill or stroke colors for a number of specific mark types, and these will take precedence over new fill or stroke colors set only on the top-level `"mark"`.
-- 使用`mark`属性设置的缺省值将被为更特定的标记类型定义的任何缺省值所覆盖（例如：`rect`）。Vega内置的配置项包括一些特定图表项默认的`fill`或`stroke`颜色。这些默认配置项的优先级将高于填写在`mark`中配置的优先级。
+- 在Vega顶级规范配置中使用`mark`属性设置的缺省值将被为更特定的标记类型定义的任何缺省值所覆盖（例如：`rect`）。Vega内置的配置项包括一些特定图表项默认的`fill`或`stroke`颜色。这些默认配置项的优先级将高于填写在`mark`中配置的优先级。
 
 ### Usage
 
 To set a default fill color and size for `symbol` marks:
 
-为`symbol`元素设置默认的填充颜色和尺寸：
+为`symbol`元素设置默认的填充色和尺寸：
 
 ```json
 {
@@ -195,11 +195,11 @@ To set a global opacity value for all mark types:
 In addition to the default mark properties above, default values can be further customized using named _styles_ defined under the `style` block
 in the config. Styles can then be invoked by including a `style` directive within a mark definition.
 
-除了使用`mark`设置默认属性值，也可以在`style`属性下定义的_styles_进一步定制各种图表元素的默认样式值。指定的样式值可以通过在图表属性中添加`style`属性来调用。
+除了使用`mark`设置图表各种样式的默认属性值，也可以在`style`属性下定义的 _styles_ 进一步定制各种图表元素的默认样式。指定的样式值可以通过在各类图表属性中包含`style`属性来调用。
 
 For example, to set a default shape and stroke width for symbol marks with a style named `"square"`:
 
-例如为符号标记设置一个名为`square`的默认的形状和`strokeWidth`
+例如为symbol图形元素设置一个名为`square`的默认的形状和`strokeWidth`
 
 {: .suppress-error}
 ```json
@@ -217,7 +217,7 @@ In addition to custom `style` names, Vega includes the following built-in style 
 - `guide-title`: styles for axis and legend titles
 - `group-title`: styles for chart and header titles
 
-除了可以设置样式名，Vega包括以下内置样式名：
+除了可以自定义样式名，Vega本身包括以下内置样式名：
 
 - `guide-label`: 坐标轴和图例标签样式
 - `guide-title`: 坐标轴和图例标题样式
@@ -225,7 +225,7 @@ In addition to custom `style` names, Vega includes the following built-in style 
 
 Style settings take precedence over default mark settings, but are overridden by the axis, legend, and title properties described below.
 
-尽管默认样式值的优先级高于`mark`属性中的默认值，但还是会被下面所要讲到的`axis`、`legend`和`title`对象中的属性值所覆盖。
+尽管图表默认样式值的优先级高于`mark`属性中的默认值，但还是会被下面所要讲到的`axis`、`legend`和`title`配置项中的属性值所覆盖。
 
 [Back to Top](#reference)
 
@@ -234,7 +234,7 @@ Style settings take precedence over default mark settings, but are overridden by
 
 Properties defining default settings for axes. These properties are defined under the `"axis"` property in the config object, in which case the settings apply to _all_ axes.
 
-`axis`对象中定义坐标轴的所有默认设置项，这些设置项将会默认应用在所有坐标轴当中。
+`axis`配置项中定义坐标轴的所有默认设置项值，这些设置项将会默认应用在 _所有_ 坐标轴当中。
 
 Additional property blocks can target more specific axis types based on the orientation (`"axisX"`, `"axisY"`, `"axisLeft"`, `"axisTop"`, etc.) or band scale type (`"axisBand"`). For example, properties defined under the `"axisBand"` property will only apply to axes visualizing `"band"` scales. If multiple axis config blocks apply to a single axis, type-based options take precedence over orientation-based options, which in turn take precedence over general options.
 
@@ -317,9 +317,9 @@ Additional property blocks can target more specific axis types based on the orie
 | minExtent       | {% include type t="Number" %}   | 轴刻度和标签可用最小长度范围，确定轴标题最小偏移 |
 | ticks           | {% include type t="Boolean" %}  | 默认情况下是否展示刻度轴 |
 | tickColor       | {% include type t="Color" %}    | 刻度轴颜色 |
-| tickExtra       | {% include type t="Boolean" %}  | Boolean flag indicating if an extra axis tick should be added for the initial position of the axis. This flag is useful for styling axes for `band` scales such that ticks are placed on band boundaries rather in the middle of a band. Use in conjunction with `"bandPostion": 1` and an axis `"padding"` value of `0`. |
+| tickExtra       | {% include type t="Boolean" %}  | 选择是否应该为坐标轴的初始位置添加一个额外的轴标记。该属性对于类目型比例尺坐标轴非常有用，例如可以结合配置项`"badPosition: 1"`和`"padding: 0"`，设置将坐标刻度放在每块刻度的边上而不是居中放置。 |
 | tickOffset      | {% include type t="Number" %}   | 刻度轴、标签文本和网格线的偏移值 |
-| tickRound       | {% include type t="Boolean" %}  | Boolean flag indicating if pixel position values should be rounded to the nearest integer. |
+| tickRound       | {% include type t="Boolean" %}  | 选择是否将坐标轴刻度的位置像素值四舍五入到最近的整数值|
 | tickSize        | {% include type t="Number" %}   | 刻度轴的尺寸和长度，单位为像素 |
 | tickWidth       | {% include type t="Number" %}   | 刻度轴宽度 |
 | titleAlign      | {% include type t="String" %}   | 刻度轴标题的文本对齐方式 |
@@ -423,10 +423,10 @@ Properties defining default settings for legends. These properties are defined u
 | gradientDirection     | {% include type t="String" %}   | 渐变图例的默认方向(“horizontal”或“vertical”)。|
 | gradientLength        | {% include type t="Number" %}   | 颜色渐变的主轴长度，这个值对应垂直/水平渐变高/宽度值 |
 | gradientThickness     | {% include type t="Number" %}   | 颜色渐变的像素厚度，值的大小对应垂直/水平渐变高/宽度值 |
-| gradientWidth         | {% include type t="Number" %}   | 弃用属性, use _gradientLength_ instead. If _gradientLength_ is not defined, this value will be used instead. |
-| gradientHeight        | {% include type t="Number" %}   | 弃用属性, use _gradientThickness_ instead. If _gradientThickness_ is not defined, this value will be used instead. |
-| gradientStrokeColor   | {% include type t="Color" %}    | Stroke color for color ramp gradient borders. |
-| gradientStrokeWidth   | {% include type t="Number" %}   | Stroke width for color ramp gradient borders. |
+| gradientWidth         | {% include type t="Number" %}   | 弃用属性, 替换为 _gradientLength_ 属性。如果 _gradientLength_ 没有对应的默认值，则才选择该属性默认值  |
+| gradientHeight        | {% include type t="Number" %}   | 弃用属性, 替换为 _gradientThickness_ 属性。如果 _gradientThickness_ 没有对应的默认值，则才选择该属性默认值 |
+| gradientStrokeColor   | {% include type t="Color" %}    | 颜色渐变外边框的stroke填充色。 Stroke color for color ramp gradient borders. |
+| gradientStrokeWidth   | {% include type t="Number" %}   | 颜色渐变外边框的stroke的宽度。 Stroke width for color ramp gradient borders. |
 | gradientLabelLimit    | {% include type t="Number" %}   | 颜色渐变标签文本允许的最大（像素）长度值 |
 | gradientLabelOffset   | {% include type t="Number" %}   | 颜色渐变标签垂直方向的偏移值 |
 | gridAlign             | {% include type t="String" %}   | 设定图例行和列的对齐方式，支持“all”、“each”和“none”。想了解更多看这里 [grid layout documentation](../layout). |
@@ -446,12 +446,12 @@ Properties defining default settings for legends. These properties are defined u
 | strokeColor           | {% include type t="Color" %}    | 图例外边框颜色 |
 | strokeDash            | {% include type t="Number[]" %} | 图例边框样式（实线 or 虚线） |
 | strokeWidth           | {% include type t="Number" %}   | 图例边框线宽度 |
-| symbolBaseFillColor   | {% include type t="Color" %}    | Default fill color for legend symbols. Only applied if there is no `"fill"` scale color encoding for the legend. |
-| symbolBaseStrokeColor | {% include type t="Color" %}    | Default stroke color for legend symbols. Only applied if there is no `"fill"` scale color encoding for the legend. |
-| symbolDirection       | {% include type t="String" %}   | The default direction (`"horizontal"` or `"vertical"`) for symbol legends. |
+| symbolBaseFillColor   | {% include type t="Color" %}    | 图例中图形的默认填充色，该配置默认值只有在`"legend"`配置项中没有`"fill"`配置项时才会生效  |
+| symbolBaseStrokeColor | {% include type t="Color" %}    | 图例中图形的默认stroke填充色，该配置默认值只有在`"legend"`配置项中没有`"fill"`配置项时才会生效 |
+| symbolDirection       | {% include type t="String" %}   | 图形图例的默认方向（`"horizontal"`或`"vertical"`）  |
 | symbolFillColor       | {% include type t="Color" %}    | 图例项图形的填充色 |
 | symbolOffset  | {% include type t="Number" %}   | 图例项中图形元素的水平偏移值 |
-| symbolSize            | {% include type t="Number" %}   | Default symbol area size (in pixels<sup>2</sup>). |
+| symbolSize            | {% include type t="Number" %}   | symbol默认像素尺寸 (in pixels<sup>2</sup>). |
 | symbolStrokeColor     | {% include type t="Color" %}    | 图例项图形默认的stroke颜色|
 | symbolStrokeWidth     | {% include type t="Number" %}   | 图例项图形的默认的stroke宽度 |
 | symbolType            | {% include type t="String" %}   | 图例项默认展示的图形类型 |
@@ -460,7 +460,7 @@ Properties defining default settings for legends. These properties are defined u
 | titleColor            | {% include type t="Color" %}    |图例字体颜色 |
 | titleFont             | {% include type t="String" %}   | 图例标题字体的font-name |
 | titleFontSize         | {% include type t="Number" %}   | 图例标题的font-size |
-| titleFontWeight       | {% include type t="String|Number" %}   | Font weight for legend titles. |
+| titleFontWeight       | {% include type t="String|Number" %}   | 图例标题的font-weight值 |
 | titleLimit            | {% include type t="Number" %}   | 图例标题允许展示的最大长度 |
 | titlePadding          | {% include type t="Number" %}   | 在图例标题和图例内容之间的padding值 |
 
@@ -542,7 +542,11 @@ This example gives every title a 10 pixel offset and a font size of 18 pixels.
 
 Properties defining named range arrays that can be used within scale range definitions (such as `{"type": "ordinal", "range": "category"}`). These properties are defined under the `"range"` property in the config object.
 
+定义命名范围数组的属性，可以在定义比例尺类型时使用（例如`{"type": "ordinal", "range": "category"}`）。这些属性是在`"range"`对象下定义的。
+
 Object-valued properties must be legal [scale range](../scales/#range) definitions.
+
+对象属性值必须是合法滴，参考[scale range](../scales/#range) 定义项.
 
 {% capture scheme %}[Scheme](../schemes){% include or %}{% include type t="Color[]" %}{% endcapture %}
 
@@ -555,10 +559,21 @@ Object-valued properties must be legal [scale range](../scales/#range) definitio
 | ramp      | {{ scheme }} | Default [color scheme](../schemes) for sequential quantitative ramps. |
 | symbol    | {% include type t="String[]" %} | Array of [symbol](../marks/symbol) names or paths for the default shape palette. |
 
+| 属性  | 类型         | 说明    |
+| :-------- | :----------: | :------------- |
+| category  | {{ scheme }} | 默认 [color scheme](../schemes) 用于分类类型数据 |
+| diverging | {{ scheme }} | 默认 [color scheme](../schemes) 用于分化数量的渐变色 for diverging quantitative ramps. |
+| heatmap   | {{ scheme }} | 默认 [color scheme](../schemes) 用于定量型热力图 |
+| ordinal   | {{ scheme }} | 默认 [color scheme](../schemes) 用于可排序的数据类型 |
+| ramp      | {{ scheme }} | 默认 [color scheme](../schemes) 用于连续定量渐变色 |
+| symbol    | {% include type t="String[]" %} | Array of [symbol](../marks/symbol) names or paths for the default shape palette. |
+
 
 ### Usage
 
 This example sets new default color palettes.
+
+下面的例子设置了新的默认颜色调色板。
 
 ```json
 {
