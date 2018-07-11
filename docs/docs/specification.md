@@ -6,9 +6,9 @@ permalink: /docs/specification/index.html
 
 A Vega *specification* defines an interactive visualization in [JavaScript Object Notation (JSON)](http://en.wikipedia.org/wiki/JSON).
 
-Vega 以 [JSON](http://en.wikipedia.org/wiki/JSON)的形式定义了一个交互式的可视化规范.
-
 Below is a basic outline of a Vega specification. Complete specifications include definitions for an appropriate subset of the _data_, _scales_, _axes_, _marks_, _etc._ properties.
+
+Vega 以 [JSON](http://en.wikipedia.org/wiki/JSON)的形式定义了一个交互式的可视化规范.
 
 以下是Vega规范的基本概要. 完整的规范包括了适当的数据子集，比例，轴，标记等属性的定义.
 
@@ -42,8 +42,8 @@ Below is a basic outline of a Vega specification. Complete specifications includ
 | background      | {% include type t="Color" %}  | The background color of the entire view (defaults to transparent).<br><br>整个视图的背景颜色(默认为透明-transparent)|
 | width           | {% include type t="Number" %} | The width in pixels of the data rectangle.<br><br>数据矩形的宽度|
 | height          | {% include type t="Number" %} | The height in pixels of the data rectangle.<br><br>数据矩形的高度|
-| padding         | {% include type t="Number|Object" %} | The padding in pixels to add around the visualization. If a number, specifies padding for all sides. If an object, the value should have the format `{"left": 5, "top": 5, "right": 5, "bottom": 5}`. Padding is applied _after_ autosize layout completes.<br><br>添加到视图周边的padding.如果值是一个number,则每一边都加上padding.如果值是一个object,则应该是如下格式`{"left": 5, "top": 5, "right": 5, "bottom": 5}`. padding会在自适应布局完成后生效|
-| autosize        | {% include type t="String|[Autosize](#autosize)" %} | Sets how the visualization size should be determined. If a string, should be one of `pad` (default), `fit`, `fit-x`, `fit-y`, or `none`. Object values can additionally specify parameters for content sizing and automatic resizing. See the [autosize](#autosize) section below for more.<br><br>怎样决定视图的尺寸.如果值是string, 则5选1`pad` (默认), `fit`, `fit-x`, `fit-y`, or `none`.当值是object时会额外的列举出 内容尺寸计算方式和自动布局的配置参数.查看下面的 [autosize](#autosize) 部分了解更多.|
+| padding         | {% include type t="Number\|Object" %} | The padding in pixels to add around the visualization. If a number, specifies padding for all sides. If an object, the value should have the format `{"left": 5, "top": 5, "right": 5, "bottom": 5}`. Padding is applied _after_ autosize layout completes.<br><br>添加到视图周边的padding.如果值是一个number,则每一边都加上padding.如果值是一个object,则应该是如下格式`{"left": 5, "top": 5, "right": 5, "bottom": 5}`. padding会在自适应布局完成后生效|
+| autosize        | {% include type t="String\|[Autosize](#autosize)" %} | Sets how the visualization size should be determined. If a string, should be one of `pad` (default), `fit`, `fit-x`, `fit-y`, or `none`. Object values can additionally specify parameters for content sizing and automatic resizing. See the [autosize](#autosize) section below for more.<br><br>怎样决定视图的尺寸.如果值是string, 则5选1`pad` (默认), `fit`, `fit-x`, `fit-y`, or `none`.当值是object时会额外的列举出 内容尺寸计算方式和自动布局的配置参数.查看下面的 [autosize](#autosize) 部分了解更多.|
 | config          | [Config](../config) | Configuration settings with default values for marks, axes and legends.<br><br>配置设置，包含标记，轴和图例的默认值|
 | signals         | {% include array t="[Signal](../signals)" %} | Signals are dynamic variables that parameterize a visualization.<br><br>Signals是动态变量,作为参数来表示一个可视化视图|
 | data            | {% include array t="[Data](../data)" %} | Data set definitions and transforms define the data to load and how to process it.<br>Data set和transforms定义了将要加载的数据以及如何处理它|
@@ -53,16 +53,16 @@ Below is a basic outline of a Vega specification. Complete specifications includ
 | legends         | {% include array t="[Legend](../legends)" %} | Legends visualize scale mappings for visual values such as color, shape and size.<br><br>图例可视化比例映射的视觉值，如颜色，形状和大小|
 | title           | {% include type t="[Title](../title)" %} | Title text to describe a visualization.<br><br>用于描述可视化的标题文本|
 | marks           | {% include array t="[Mark](../marks)" %} | Graphical marks visually encode data using geometric primitives such as rectangles, lines, and plotting symbols.<br><br>使用几何图形（例如矩形，线条和绘图符号）可视地编码数据|
-| encode          | [Encode](../marks/#encode) | Encoding directives for the visual properties of the top-level [group mark](../marks/group) representing a chart's data rectangle. For example, this can be used to set a background fill color for the plotting area, rather than the entire view.<br><br>例如,它可以用来给一块绘图区域设置背景色, 而不是给整个视图|
+| encode          | [Encode](../marks/#encode) | Encoding directives for the visual properties of the top-level [group mark](../marks/group) representing a chart's data rectangle. For example, this can be used to set a background fill color for the plotting area, rather than the entire view.<br><br>给表示图表的data rectangle的顶层的marks容器的可视属性编码指令.例如,它可以用来给一块绘图区域设置背景色, 而不是给整个视图|
 
 
 ## <a name="autosize"></a>Autosize
 
 Vega views can be sized (and resized) in various ways.
 
-Vega 视图能够以多种方式设置和调整大小
-
 If an object, the value should have the format `{"type": "pad", "resize": true}`, where `type` is one of the autosize strings and resize is a boolean indicating if autosize layout should be re-calculated on every update.
+
+Vega 视图能够以多种方式设置和调整大小
 
 如果值是一个对象, 那么应该是按照这个格式`{"type": "pad", "resize": true}`. `type`是autosize 类型中的一个; `resize`是一个boolean, 表明了每次更新是否重新计算布局大小.
 
@@ -85,3 +85,9 @@ Vega可视化视图的整个大小可能由多个因素决定: 明确的_width_,
 - `fit`: Automatically adjust the layout in an attempt to force the total visualization size to fit within the given width, height and padding values. This setting causes the plotting region to be made smaller in order to accommodate axes, legends and titles. As a result, the value of the _width_ and _height_ signals may be changed to modify the layout. Though effective for many plots, the `fit` method can not always ensure that all content remains visible. For example, if the axes and legends alone require more space than the specified width and height, some of the content will be clipped. Similar to `none`, by default the total width will be `width + padding.left + padding.right`, relative to the original, unmodified _width_ value. If _autosize.contains_ is set to `"padding"`, the total width will instead be the original _width_.
 - `fit-x`: Similar to `fit`, except that only the width (x-axis) is adjusted to fit the given dimensions. The view height is automatically sized as if set to `pad`.
 - `fit-y`: Similar to `fit`, except that only the height (y-axis) is adjusted to fit the given dimensions. The view width is automatically sized as if set to `pad`.
+
+-`none`:不会自动调整大小,.整个可视化的大小**仅由**提供的width, height和padding决定.例如,默认的整个width由`width + padding.left + padding.right`计算得来.任何超出这个范围的内容都会被剪裁掉.如果_autosize.contains_被设置为`padding`,那么整个width就等于_width_
+-`pad`: 自动增加视图的大小，以保证所有内容都是可见的,这是_autosize_的默认设置,确保axes, legends和其他超出正常宽度和高度的元素都包括在内.整个可视化的大小通常会超过给定的width, height和padding.
+-`fit`: 自动调整布局,强制使整个视图大小适应给定的width, height 和 padding.这项设置导致绘图区域变得更小,以便于容纳axes, legends和titles.因此, _width_ 和 _height_ signals可能会被改变去修改布局.尽管在很多场景下能适用,但是`fit`方法并不总能确保所有内容仍然可见.例如,如果axes和legends单独需要比指定width和height更多的空间, 一些内容将会被剪裁.与`none`相似, 相对于原始未修改的宽度值,默认总宽为`width + padding.left + padding.right`. 如果 _autosize.contains_ 被设置为 `"padding"`, 总宽就会被初始的_width_替代.
+-`fit-x`: 与`fit`相似,仅宽度width(x-axis)调整以适应给定的尺寸,视图的高度height自动调整大小，就像设置为`pad`一样.
+-`fit-y`: 与`fit`相似,仅宽度height(y-axis)调整以适应给定的尺寸,视图的宽度width自动调整大小，就像设置为`pad`一样.
