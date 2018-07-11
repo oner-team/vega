@@ -32,6 +32,11 @@ Vega 以 [JSON](http://en.wikipedia.org/wiki/JSON)的形式定义了一个交互
 }
 ```
 
+关于 **visualization** 和 **data rectangle**
+- `visualization` : visualization是Vega中的顶层对象,是所有视觉元素的容器. 它是由一个矩形的canvas (视觉元素所在的空间) 和一个viewport (canvas上的一个窗口). 在多数情况下,这两者的大小是相等的;如果viewport较小, 则该区域应该是可滚动的.
+- `data rectangle`: 是visualization内部的子区域, 所有的 _marks_ 都存在于其中.默认情况下, data rectangle 充满整个canvas画布.可选择的配置padding给visualization与data rectangle之间填充空间., 这样的话 _visualization_ 总宽度和高度由 _data rectangle_ 大小加上 _padding_ 确定.
+
+
 ## Top-Level Specification Properties
 ## 顶级属性
 
