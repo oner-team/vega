@@ -34,7 +34,7 @@ Vega 以 [JSON](http://en.wikipedia.org/wiki/JSON)的形式定义了一个交互
 
 关于 **visualization** 和 **data rectangle**
 - `visualization` : visualization是Vega中的顶层对象,是所有视觉元素的容器. 它是由一个矩形的canvas (视觉元素所在的空间) 和一个viewport (canvas上的一个窗口). 在多数情况下,这两者的大小是相等的;如果viewport较小, 则该区域应该是可滚动的.
-- `data rectangle`: 是visualization内部的子区域, 所有的 _marks_ 都存在于其中.默认情况下, data rectangle 充满整个canvas画布.可选择的配置padding给visualization与data rectangle之间填充空间., 这样的话 _visualization_ 总宽度和高度由 _data rectangle_ 大小加上 _padding_ 确定.
+- `data rectangle`: 是visualization内部的子区域, 所有的 _marks_ 都存在于其中.默认情况下, data rectangle 充满整个canvas画布.可选择的配置padding给visualization与data rectangle之间填充空间, 这样的话 _visualization_ 总宽度和高度由 _data rectangle_ 大小加上 _padding_ 确定.
 
 
 ## Top-Level Specification Properties
@@ -90,8 +90,8 @@ Vega可视化视图的整个大小可能由多个因素决定: 明确的 _width_
 - `fit-x`: Similar to `fit`, except that only the width (x-axis) is adjusted to fit the given dimensions. The view height is automatically sized as if set to `pad`.
 - `fit-y`: Similar to `fit`, except that only the height (y-axis) is adjusted to fit the given dimensions. The view width is automatically sized as if set to `pad`.
 
--`none`:不会自动调整大小,.整个可视化的大小**仅由**提供的width, height和padding决定.例如,默认的整个width由`width + padding.left + padding.right`计算得来.任何超出这个范围的内容都会被剪裁掉.如果_autosize.contains_被设置为`padding`,那么整个width就等于  _width_ 
--`pad`: 自动增加视图的大小，以保证所有内容都是可见的,这是 _autosize_ 的默认设置,确保axes, legends和其他超出正常宽度和高度的元素都包括在内.整个可视化的大小通常会超过给定的width, height和padding.
--`fit`: 自动调整布局,强制使整个视图大小适应给定的width, height 和 padding.这项设置导致绘图区域变得更小,以便于容纳axes, legends和titles.因此,  _width_  和  _height_  signals可能会被改变去修改布局.尽管在很多场景下能适用,但是`fit`方法并不总能确保所有内容仍然可见.例如,如果axes和legends单独需要比指定width和height更多的空间, 一些内容将会被剪裁.与`none`相似, 相对于原始未修改的宽度值,默认总宽为`width + padding.left + padding.right`. 如果  _autosize.contains_  被设置为 `"padding"`, 总宽就会被初始的  _width_ 替代.
--`fit-x`: 与`fit`相似,仅宽度width(x-axis)调整以适应给定的尺寸,视图的高度height自动调整大小，就像设置为`pad`一样.
--`fit-y`: 与`fit`相似,仅宽度height(y-axis)调整以适应给定的尺寸,视图的宽度width自动调整大小，就像设置为`pad`一样.
+- `none`:不会自动调整大小,.整个可视化的大小**仅由**提供的width, height和padding决定.例如,默认的整个width由`width + padding.left + padding.right`计算得来.任何超出这个范围的内容都会被剪裁掉.如果_autosize.contains_被设置为`padding`,那么整个width就等于  _width_ 
+- `pad`: 自动增加视图的大小，以保证所有内容都是可见的,这是 _autosize_ 的默认设置,确保axes, legends和其他超出正常宽度和高度的元素都包括在内.整个可视化的大小通常会超过给定的width, height和padding.
+- `fit`: 自动调整布局,强制使整个视图大小适应给定的width, height 和 padding.这项设置导致绘图区域变得更小,以便于容纳axes, legends和titles.因此,  _width_  和  _height_  signals可能会被改变去修改布局.尽管在很多场景下能适用,但是`fit`方法并不总能确保所有内容仍然可见.例如,如果axes和legends单独需要比指定width和height更多的空间, 一些内容将会被剪裁.与`none`相似, 相对于原始未修改的宽度值,默认总宽为`width + padding.left + padding.right`. 如果  _autosize.contains_  被设置为 `"padding"`, 总宽就会被初始的  _width_ 替代.
+- `fit-x`: 与`fit`相似,仅宽度width(x-axis)调整以适应给定的尺寸,视图的高度height自动调整大小，就像设置为`pad`一样.
+- `fit-y`: 与`fit`相似,仅宽度height(y-axis)调整以适应给定的尺寸,视图的宽度width自动调整大小，就像设置为`pad`一样.
