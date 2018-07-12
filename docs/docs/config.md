@@ -542,7 +542,7 @@ This example gives every title a 10 pixel offset and a font size of 18 pixels.
 
 Properties defining named range arrays that can be used within scale range definitions (such as `{"type": "ordinal", "range": "category"}`). These properties are defined under the `"range"` property in the config object.
 
-定义命名范围数组的属性，可以在定义比例尺类型时使用（例如`{"type": "ordinal", "range": "category"}`）。这些属性是在`"range"`对象下定义的。
+`"range"`数组的属性，可以在`"scale"`对象中进行定义（例如`{"type": "ordinal", "range": "category"}`）。以下这些属性要求定义在`"range"`对象下。
 
 Object-valued properties must be legal [scale range](../scales/#range) definitions.
 
