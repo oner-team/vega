@@ -12,9 +12,14 @@ The basic data model used by Vega is _tabular_ data, similar to a spreadsheet or
 
 Vega使用的基本数据模型是表格数据，类似于电子表格或数据库表。假设各个数据集包含一组记录（或“行”），它们可能包含任意数量的命名数据属性（字段或“列”）。使用标准的JavaScript对象对记录进行建模。
 
+> Vega 默认使用的基本数据类型是与Excel和数据库表类似的表格数据类型。每个数据元素默认包含一组记录（或多行），同时每组记录中又允许包含任意数量的命名属性字段（或“列元素”）。最终，记录（"record"）会被编译为标准的Javascript对象。 （胖子）
+
+
 If the input data is simply an array of primitive values, Vega maps each value to the `data` property of a new object. For example `[5, 3, 8, 1]` is loaded as:
 
 如果输入数据仅仅只是原始值数组，Vega将每个值映射到新对象的data属性上。例如[5, 3, 8, 1]加载为：
+
+> 如果输入数据仅仅只是包含原生数值的数组的话，Vega会将每个值映射到新对象的data属性上。例如[5, 3, 8, 1]会被加载为：（胖子）
 
 ```json
 [ {"data": 5}, {"data": 3}, {"data": 8}, {"data": 1} ]
@@ -25,9 +30,14 @@ Upon ingest, Vega also assigns each data object a unique id property, accessible
 在数据摄取时，Vega还为每个数据对象分配一个唯一的id属性，可通过自定义[Symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol)访问。
 因此，id属性不能通过字符串键访问，并且不可枚举，但您可以在JavaScript控制台中检查数据对象时观察id值。
 
+> 在数据加载时，Vega会为每个数据对象分配一个唯一的id属性，也可以通过设置[Symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol)来自定义。
+
 Data sets can be specified directly by defining data inline or providing a URL from which to load the data. Alternatively, data can be bound dynamically at runtime by using the [View API](../api/view) to provide data when a chart is instantiated or issue streaming updates. Loading data from a URL will be subject to the policies of your runtime environment (e.g., [cross-origin request rules](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS)).
 
 数据集可以直接通过定义数据内联或提供加载数据的URL来指定。或者，数据可以在运行时被动态绑定通过使用[View API](https://vega.github.io/vega/docs/api/view/)在实例化图表时提供数据或发出流更新。从URL加载数据将取决于运行时环境的策略约束。（例如，跨源请求规则）。
+
+> 数据集可以通过直接将值赋值给`data`属性或者使用`url`提供数据加载地址两种方式来指定。另外也可以使用[View API](../api/view)设置在运行时将数据动态绑定到刚完成实例化或动态更新后的图表上。使用`url`加载数据会受到运行环境的规则限制（例如跨域请求的限制）。（胖子）
+
 ## Documentation Overview
 
 - [Data Properties](#properties) 属性
@@ -40,6 +50,8 @@ Data sets can be specified directly by defining data inline or providing a URL f
 Properties for specifying a data set. At most one of the _source_, _url_, or _values_ properties should be defined.
 
 属性用于指定数据集的属性。最多应该定义一个source、url或values属性中的某一个且不重复。（意思就是这3个只能选一个用）
+
+> 如果希望加载数据集，可以选择使用 _source_ 、 _url_ 或者 _values_ 三种方式中的任意一种来加载。
 
 | Property  | Type                          | Description    |
 | :-------- | :---------------------------: | :------------- |
@@ -54,12 +66,12 @@ Properties for specifying a data set. At most one of the _source_, _url_, or _va
 | Property  | Type                          | Description    |
 | :-------- | :---------------------------: | :------------- |
 | name      | {% include type t="String" %} | {% include required %} 数据集的唯一名称 |
-| format    | [Format](#format)             | 一个对象，指定用于解析数据文件的值的格式。 [format reference](#format) for more. |
+| format    | [Format](#format)             | 指定用于解析数据文件的值的格式的对象。 [format reference](#format) for more. |
 | source    | {% include type t="String or String[]" %} | 一个或多个数据集的名称，用作此数据集的源。source属性在与transform管道相结合以获得新数据是很有用。如果是字符串值，则表示源数据集的名称;如果是数组值，则指定应该合并(unioned)的数据源名称集合.|
 | url       | {% include type t="String" %} | 加载数据集的URL。使用format属性确保已加载的数据被正确解析。如果没有指定format属性，则假定数据是的行导向JSON格式(即把一条记录的所有属性（列）存储在一起)。 |
 | values    | {% include type t="Any" %}    | 完整的数据集，包括内联。values允许数据直接包含在规范本身中。虽然最常见的是对象数组，但也可以使用其他数据类型(如CSV字符串)，具体取决于format设置。|
 | on        | {% include array t="[Trigger](../triggers)" %} | 在满足触发器条件时插入、删除和切换数据值或清除数据的更新数组。更多信息请参见 [trigger reference](https://vega.github.io/vega/docs/triggers/)|
-| transform | {% include array t="[Transform](../transforms)" %} | 对输入数据执行的转换数组。transform的输出将成为该数据集的值。 See the [transform reference](https://vega.github.io/vega/docs/transforms/) for more. |
+| transform | {% include array t="[Transform](../transforms)" %} | 对输入数据执行的`transform`方法的数组。经过transform方法返回的数据将成为该数据集的值。 See the [transform reference](https://vega.github.io/vega/docs/transforms/) for more. |
 
 
 ## <a name="format"></a>Format
@@ -67,6 +79,8 @@ Properties for specifying a data set. At most one of the _source_, _url_, or _va
 The format object describes the data format and additional parsing instructions.
 
 format对象描述数据格式和附加的解析指令或者方式。
+
+> 在`format`对象中配置属性用于说明解析数据的格式，并且可以添加额外解析方法。（胖子）
 
 | Name          | Type                          | Description    |
 | :------------ | :---------------------------: | :------------- |
@@ -84,6 +98,8 @@ Loads a JavaScript Object Notation (JSON) file. Assumes row-oriented data, where
 
 加载一个JavaScript对象表示法(JSON)文件。假设是面向行的数据，其中每一行都是具有命名属性的对象。这是默认的文件格式，如果没有提供格式参数，将使用这种格式。如果指定，格式参数应该具有“json”的类型属性，也可以接受以下内容:
 
+> 加载JSON文件，如果没有添加`format`参数，默认数据为表格类型的数据，其中每一行对应一个属性字段。如果定义了`format`参数，则应该指定`type`字段的值为"json"，也可以选择添加以下内容。
+
 
 | Name          | Type                          | Description    |
 | :------------ | :---------------------------: | :------------- |
@@ -92,7 +108,7 @@ Loads a JavaScript Object Notation (JSON) file. Assumes row-oriented data, where
 
 | Name          | Type                          | Description    |
 | :------------ | :---------------------------: | :------------- |
-| property      | {% include type t="String" %} | 包含所需数据的JSON属性。当加载的JSON文件可能具有周围的结构或元数据时，可以使用此参数。 For example `"property": "values.features"` 相当于检索 `json.values.features` from the loaded JSON object. |
+| property      | {% include type t="String" %} | 该属性用于指定所需数据的JSON属性。当加载的JSON数据可能具有层级结构或元数据时，可以使用此参数。 例如当设定为 `"property": "values.features"`时， 相当于检索JSON数据中的`json.values.features`（胖子）  |
 
 
 ### <a name="csv"></a>csv
@@ -127,7 +143,7 @@ Load a delimited text file with a custom delimiter.
 
 Load a JavaScript Object Notation (JSON) file using the [TopoJSON](https://github.com/mbostock/topojson/wiki) format. The input file must contain valid TopoJSON data. The TopoJSON input is then converted into a GeoJSON format for use within Vega. There are two mutually exclusive properties that can be used to specify the conversion process:
 
-使用[TopoJSON](https://github.com/mbostock/topojson/wiki)格式加载一个JavaScript对象表示法(JSON)文件。输入文件必须包含有效的TopoJSON数据。然后将TopoJSON输入转换为GeoJSON格式，以便在Vega中使用。有两个相互排斥的属性可以用来指定转换过程:
+使用[TopoJSON](https://github.com/mbostock/topojson/wiki)格式加载一个JavaScript对象表示法(JSON)文件。输入文件必须包含有效的TopoJSON数据。然后将TopoJSON输入转换为GeoJSON格式，以便在Vega中使用。有两个互斥的属性可以用来指定转换过程:
 
 
 | Name          | Type                          | Description    |
