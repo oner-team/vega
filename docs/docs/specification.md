@@ -8,9 +8,11 @@ A Vega *specification* defines an interactive visualization in [JavaScript Objec
 
 Below is a basic outline of a Vega specification. Complete specifications include definitions for an appropriate subset of the _data_, _scales_, _axes_, _marks_, _etc._ properties.
 
-Vega 以 [JSON](http://en.wikipedia.org/wiki/JSON)的形式定义了一个交互式的可视化规范.
+Vega 以 [JSON](http://en.wikipedia.org/wiki/JSON)的格式定义了一个交互式的可视化规范.
 
 以下是Vega规范的基本概要. 完整的规范包括了适当的数据子集，比例，轴，标记等属性的定义.
+
+> 以下是Vega规范的基本概要. 完整的规范包括数据`"data"`，比例`"scales"`，轴`"axes"`，标记`"marks"`等属性的定义.
 
 {: .suppress-error}
 ```json
@@ -33,8 +35,9 @@ Vega 以 [JSON](http://en.wikipedia.org/wiki/JSON)的形式定义了一个交互
 ```
 
 关于 **visualization** 和 **data rectangle**
-- `visualization` : visualization是Vega中的顶层对象,是所有视觉元素的容器. 它是由一个矩形的canvas (视觉元素所在的空间) 和一个viewport (canvas上的一个窗口). 在多数情况下,这两者的大小是相等的;如果viewport较小, 则该区域应该是可滚动的.
-- `data rectangle`: 是visualization内部的子区域, 所有的 _marks_ 都存在于其中.默认情况下, data rectangle 充满整个canvas画布.可选择的配置padding给visualization与data rectangle之间填充空间, 这样的话 _visualization_ 总宽度和高度由 _data rectangle_ 大小加上 _padding_ 确定.
+
+- `visualization` : visualization是Vega中的顶层对象,是所有视觉元素的容器. 它是由一个矩形的canvas (视觉元素所在的空间) 和一个viewport (canvas上的一个窗口)组成的。 在多数情况下,这两者的大小是相等的;如果viewport较小, 则该区域应该是可滚动的.
+- `data rectangle`: 是visualization内部的子区域, 定义在 _marks_ 中的所有元素都存在于其中。默认情况下, `data rectangle`充满整个canvas画布。可选择的配置padding给visualization与data rectangle之间填充空间, 这样的话 _visualization_ 总宽度和高度由 _data rectangle_ 大小加上 _padding_ 确定。
 
 
 ## Top-Level Specification Properties
@@ -45,15 +48,15 @@ Vega 以 [JSON](http://en.wikipedia.org/wiki/JSON)的形式定义了一个交互
 | $schema         | {% include type t="URL" %}    | The URL for the Vega schema.<br><br>引入的Vega schema 的URL|
 | description     | {% include type t="String" %} | A text description of the visualization.<br>视图的描述|
 | background      | {% include type t="Color" %}  | The background color of the entire view (defaults to transparent).<br><br>整个视图的背景颜色(默认为透明-transparent)|
-| width           | {% include type t="Number" %} | The width in pixels of the data rectangle.<br><br>数据矩形的宽度|
-| height          | {% include type t="Number" %} | The height in pixels of the data rectangle.<br><br>数据矩形的高度|
-| padding         | {% include type t="Number\|Object" %} | The padding in pixels to add around the visualization. If a number, specifies padding for all sides. If an object, the value should have the format `{"left": 5, "top": 5, "right": 5, "bottom": 5}`. Padding is applied _after_ autosize layout completes.<br><br>添加到视图周边的padding.如果值是一个number,则每一边都加上padding.如果值是一个object,则应该是如下格式`{"left": 5, "top": 5, "right": 5, "bottom": 5}`. padding会在自适应布局完成后生效|
-| autosize        | {% include type t="String\|[Autosize](#autosize)" %} | Sets how the visualization size should be determined. If a string, should be one of `pad` (default), `fit`, `fit-x`, `fit-y`, or `none`. Object values can additionally specify parameters for content sizing and automatic resizing. See the [autosize](#autosize) section below for more.<br><br>怎样决定视图的尺寸.如果值是string, 则5选1`pad` (默认), `fit`, `fit-x`, `fit-y`, or `none`.当值是object时会额外的列举出 内容尺寸计算方式和自动布局的配置参数.查看下面的 [autosize](#autosize) 部分了解更多.|
+| width           | {% include type t="Number" %} | The width in pixels of the data rectangle.<br><br> `data reactangle`区域的宽度|
+| height          | {% include type t="Number" %} | The height in pixels of the data rectangle.<br><br>`data reactangle`区域的高度|
+| padding         | {% include type t="Number\|Object" %} | The padding in pixels to add around the visualization. If a number, specifies padding for all sides. If an object, the value should have the format `{"left": 5, "top": 5, "right": 5, "bottom": 5}`. Padding is applied _after_ autosize layout completes.<br><br>添加到视图(`visualization`)区域周边的padding。如果值是一个number，则每一边都加上padding。如果值是一个object，则应该是如下格式`{"left": 5, "top": 5, "right": 5, "bottom": 5}`。padding会在自适应布局完成后生效 |
+| autosize        | {% include type t="String\|[Autosize](#autosize)" %} | Sets how the visualization size should be determined. If a string, should be one of `pad` (default), `fit`, `fit-x`, `fit-y`, or `none`. Object values can additionally specify parameters for content sizing and automatic resizing. See the [autosize](#autosize) section below for more.<br><br>怎样决定视图的尺寸，如果值是string, 则5选1`pad` (默认), `fit`, `fit-x`, `fit-y`, or `none`.当值是object时会额外的列举出 内容尺寸计算方式和自动布局的配置参数.查看下面的 [autosize](#autosize) 部分了解更多. <br>`autosize`配置项是用来配置视图区域尺寸的定义方式的，如果对应值为字符串类型， 则从`pad` (默认), `fit`, `fit-x`, `fit-y`, or `none`几个值中五选一。当值类型为Object时，可以添加额外设置内容区域尺寸和自动调整大小的参数。</br> |
 | config          | [Config](../config) | Configuration settings with default values for marks, axes and legends.<br><br>配置设置，包含标记，轴和图例的默认值|
 | signals         | {% include array t="[Signal](../signals)" %} | Signals are dynamic variables that parameterize a visualization.<br><br>Signals是动态变量,作为参数来表示一个可视化视图|
-| data            | {% include array t="[Data](../data)" %} | Data set definitions and transforms define the data to load and how to process it.<br>Data set和transforms定义了将要加载的数据以及如何处理它|
-| scales          | {% include array t="[Scale](../scales)" %} | Scales map data values (numbers, dates, categories, etc) to visual values (pixels, colors, sizes).<br><br>将单纯的数据值(数字,日期,种类等)转化为可见的值(像素, 颜色, 大小等)|
-| projections     | {% include array t="[Projection](../projections)" %} | Cartographic projections map _(longitude, latitude)_ pairs to projected _(x, y)_  coordinates.<br><br>地图投影将_(longitude, latitude)_经纬度投影到  _(x, y)_ 坐标|
+| data            | {% include array t="[Data](../data)" %} | Data set definitions and transforms define the data to load and how to process it.<br>Data set和transforms定义了将要加载的数据以及如何处理它。 （定义了如何加载数据集，`transform`方法则说明了要如何处理数据）|
+| scales          | {% include array t="[Scale](../scales)" %} | Scales map data values (numbers, dates, categories, etc) to visual values (pixels, colors, sizes).<br><br>将单纯的数据值(数字,日期,种类等)转化为可视化属性所需的值(像素, 颜色, 大小等)|
+| projections     | {% include array t="[Projection](../projections)" %} | Cartographic projections map _(longitude, latitude)_ pairs to projected _(x, y)_  coordinates.<br><br>地图投影将_(longitude, latitude)_经纬度转化为  _(x, y)_ 坐标|
 | axes            | {% include array t="[Axis](../axes)" %} | Coordinate axes visualize spatial scale mappings.<br><br>坐标轴可视化空间比例映射。|
 | legends         | {% include array t="[Legend](../legends)" %} | Legends visualize scale mappings for visual values such as color, shape and size.<br><br>图例可视化比例映射的视觉值，如颜色，形状和大小|
 | title           | {% include type t="[Title](../title)" %} | Title text to describe a visualization.<br><br>用于描述可视化的标题文本|
