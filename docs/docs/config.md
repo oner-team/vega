@@ -73,7 +73,7 @@ Vega配置项目中的顶级属性。
 
 | 属性      | 类型                                 | 说明    |
 | :------------ | :----------------------------------: | :------------- |
-| autosize      | {% include type t="String|Object" %} |  默认自动适配视图尺寸的设置项。有效设置属性值有“pad”、“fit”或“none”。更多信息请参见[autosize文档](../specification/#autosize)。 |
+| autosize      | {% include type t="String or Object" %} |  默认自动适配视图尺寸的设置项。有效设置属性值有“pad”、“fit”或“none”。更多信息请参见[autosize文档](../specification/#autosize)。 |
 | background    | {% include type t="Color" %}         | 设置视图组件的背景色，如果值为null时为透明背景 |
 | group         | {% include type t="Object" %}        | 用于设置图表样式和配色的顶级配置，有效配置项有`fill`、`stroke`和`strokeWidth` |
 
