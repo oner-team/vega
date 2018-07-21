@@ -25,7 +25,8 @@ Given this data:
 ]
 ```
 
-This example writes unique identifier values to the `id` field of each newly seen data object. 
+This example writes unique identifier values to the `id` field of each newly seen data object.
+
 这个案例将唯一标识赋值给数据的`id`字段
 
 ```json
