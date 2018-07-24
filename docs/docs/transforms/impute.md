@@ -5,6 +5,7 @@ permalink: /docs/transforms/impute/index.html
 ---
 
 The **impute** transform performs imputation of missing data objects.
+
 **impute** transform 会对缺失的 data objects 进行估算.
 
 ## Transform Parameters
@@ -54,11 +55,9 @@ In this example, the transform imputes the tuple
 ```
 
 解析:
- 
-```javascript
-	1.首先根据groupby["c"],把data分为 c=0和c=1 两组
-	2.根据key: x, 在上面两组中对比x字段
-	3.对比发现 c=1的组中缺少 x=3的数据,则进行缺失值估算,
-	method=value value=500, 则y=500
-	4.新增的缺失值为 {x:3, c:1, y:500} 
-```
+- 首先根据groupby["c"],把data分为 c=0和c=1 两组
+- 根据key: x, 在上面两组中对比x字段
+- 对比发现 c=1的组中缺少 x=3的数据,则进行缺失值估算,
+method=value value=500, 则y=500
+新增的缺失值为 {x:3, c:1, y:500} 
+
