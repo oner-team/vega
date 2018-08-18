@@ -6,7 +6,25 @@ permalink: /docs/transforms/bin/index.html
 
 The **bin** transform discretizes numeric values into a set of bins. A common use case is to create a histogram.
 
+**bin**转换方法将数值离散为一组数据(此处命名为bin)。一个常见的例子是用来创建直方图。
+
 ## Transform Parameters
+
+| Property            | Type                            | Description   |
+| :------------------ | :-----------------------------: | :------------ |
+| field               | {% include type t="Field" %}    | {% include required %} bin中的数据字段|
+| extent              | {% include type t="Number[]" %} | {% include required %} 一个表示数值范围的数组，数组内容分别为bin中数值的最小值和最大值。 A two-element array with the minimum and maximum values of the bin range.|
+| anchor              | {% include type t="Number" %}   | A value in the binned domain at which to anchor the bins, shifting the bin boundaries if necessary to ensure that a boundary aligns with the anchor value. By default, the minimum bin extent value serves as the anchor.|
+| maxbins             | {% include type t="Number" %}   | The maximum number of bins to create (default `20`).|
+| base                | {% include type t="Number" %}   | The number base to use for automatic bin determination (default `10`).|
+| step                | {% include type t="Number" %}   | An exact step size to use between bins. If provided, options such as _maxbins_ will be ignored.|
+| steps               | {% include type t="Number[]" %} | An array of allowable step sizes to choose from.|
+| minstep             | {% include type t="Number" %}   | The minimum allowed bin step size (default `0`).|
+| divide              | {% include type t="Number[]" %} | Allowable bin step sub-divisions. The default value is `[5, 2]`, which indicates that for base 10 numbers (the default base) automatic bin determination can consider dividing bin step sizes by 5 and/or 2.|
+| nice                | {% include type t="Boolean" %}  | If `true` (the default), attempts to make the bin boundaries use human-friendly boundaries, such as multiples of ten.|
+| signal              | {% include type t="String" %}   | If defined, binds the computed binning specification (an object with _start_, _stop_ and _step_ properties) to a signal with the given name.|
+| as                  | {% include type t="String[]" %} | The output fields at which to write the start and end bin values. The default is `["bin0", "bin1"]`.|
+
 
 | Property            | Type                            | Description   |
 | :------------------ | :-----------------------------: | :------------ |
@@ -22,6 +40,8 @@ The **bin** transform discretizes numeric values into a set of bins. A common us
 | nice                | {% include type t="Boolean" %}  | If `true` (the default), attempts to make the bin boundaries use human-friendly boundaries, such as multiples of ten.|
 | signal              | {% include type t="String" %}   | If defined, binds the computed binning specification (an object with _start_, _stop_ and _step_ properties) to a signal with the given name.|
 | as                  | {% include type t="String[]" %} | The output fields at which to write the start and end bin values. The default is `["bin0", "bin1"]`.|
+
+
 
 ## Usage
 
