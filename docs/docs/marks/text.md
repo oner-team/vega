@@ -6,6 +6,9 @@ permalink: /docs/marks/text/index.html
 
 **Text** marks can be used to annotate data, and provide labels and titles for axes and legends.
 
+
+**Text** 标记(`marks`)可用于注释数据，并为轴和图例提供标签和标题。
+
 ## Example
 
 {% include embed spec="text" %}
