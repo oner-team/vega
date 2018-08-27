@@ -6,6 +6,8 @@ permalink: /docs/axes/index.html
 
 **Axes** visualize spatial [scale](../scales) mappings using ticks, grid lines and labels. Vega currently supports axes for Cartesian (rectangular) coordinates. Similar to scales, axes can be defined either at the top-level of the specification, or as part of a [group mark](../marks/group).
 
+**Axes** 会将刻度标记，网格线和标签元素映射到可视化空间[比例尺](../scales)。Vega目前支持笛卡尔坐标系(直角坐标系)。与比例尺(`scales`)类似，轴可以在规范的顶层定义，也可以作为[group mark](../marks/group)的一部分定义。
+
 ## Axis Properties
 
 Properties for specifying a coordinate axis.
